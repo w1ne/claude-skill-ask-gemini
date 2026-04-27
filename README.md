@@ -24,15 +24,28 @@ Full design rationale: [RATIONALE.md](RATIONALE.md).
 
 ## Install
 
+This is a Claude Code **plugin** (standard distribution format). Install one of three ways:
+
+**Option A — as a plugin (recommended).** Clone into Claude Code's plugin directory:
+
 ```bash
-git clone https://github.com/w1ne/claude-skill-ask-gemini.git ~/.claude/skills/ask-gemini
+git clone https://github.com/w1ne/claude-skill-ask-gemini.git ~/.claude/plugins/ask-gemini
 ```
 
-Or symlink:
+The `.claude-plugin/plugin.json` manifest registers it; Claude Code picks up everything under `skills/`.
+
+**Option B — as a standalone skill.** If you only want the skill (no plugin wrapper):
+
+```bash
+git clone https://github.com/w1ne/claude-skill-ask-gemini.git /tmp/ag && \
+  cp -r /tmp/ag/skills/ask-gemini ~/.claude/skills/ask-gemini && rm -rf /tmp/ag
+```
+
+**Option C — symlink for development.** Edit in place:
 
 ```bash
 git clone https://github.com/w1ne/claude-skill-ask-gemini.git ~/Projects/claude-skill-ask-gemini
-ln -s ~/Projects/claude-skill-ask-gemini ~/.claude/skills/ask-gemini
+ln -s ~/Projects/claude-skill-ask-gemini/skills/ask-gemini ~/.claude/skills/ask-gemini
 ```
 
 ## Prereqs

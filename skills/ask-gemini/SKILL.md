@@ -1,6 +1,6 @@
 ---
 name: ask-gemini
-description: Use ONLY when the user explicitly asks to delegate to Gemini, ask Gemini, run Gemini, or use the Gemini CLI. Also triggers on requests to analyze YouTube videos or audio files (capabilities Claude lacks). Never auto-invoke for general research, web searches, or coding tasks — those stay with Claude unless the user names Gemini.
+description: "Use ONLY when the user explicitly asks to delegate to Gemini, ask Gemini, run Gemini, or use the Gemini CLI. Also triggers on requests to analyze YouTube videos or audio files (capabilities Claude lacks). Never auto-invoke for general research, web searches, or coding tasks — those stay with Claude unless the user names Gemini."
 ---
 
 # ask-gemini

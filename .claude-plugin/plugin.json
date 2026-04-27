@@ -1,0 +1,12 @@
+{
+  "name": "ask-gemini",
+  "description": "Delegate tasks to Google's Gemini CLI as a sub-agent. Explicit-only trigger plus implicit YouTube/audio carve-out for capability gaps Claude can't fill.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andrii Shylenko",
+    "email": "shylenkoa@gmail.com"
+  },
+  "homepage": "https://github.com/w1ne/claude-skill-ask-gemini",
+  "repository": "https://github.com/w1ne/claude-skill-ask-gemini",
+  "license": "MIT"
+}
