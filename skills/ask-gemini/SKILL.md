@@ -12,13 +12,14 @@ Delegate a task to Google's Gemini CLI as a sub-agent. Use only when the user ex
 Always use this exact command shape:
 
 ```bash
-GOOGLE_GENAI_USE_GCA=true gemini -y -p "<USER_PROMPT>
+GOOGLE_GENAI_USE_GCA=true gemini -y --skip-trust -p "<USER_PROMPT>
 
 Cite sources with inline links for every factual claim. Briefly explain your reasoning."
 ```
 
 - `GOOGLE_GENAI_USE_GCA=true` is required — Gemini CLI refuses to start without an auth method env var. This one tells it to use the user's personal Google account (subscription quota, not metered API billing).
 - `-y` auto-approves tool use so the headless run doesn't hang on a confirmation prompt.
+- `--skip-trust` is required in Gemini CLI ≥ 0.39. Without it, the CLI silently downgrades from yolo to interactive mode in any "untrusted" directory and the run fails with a trusted-folders error.
 - The citation/reasoning suffix is appended to every prompt — the user explicitly required it. Without sources, don't accept the answer.
 
 ## Pass prompts verbatim
@@ -46,6 +47,7 @@ YouTube-link analysis and audio-file analysis are the only implicit triggers, be
 
 - **`Please set an Auth method...`** — the env var was dropped. Re-run with `GOOGLE_GENAI_USE_GCA=true` prefixed. Do not fall back to `GEMINI_API_KEY`; that would charge metered API billing instead of using the subscription.
 - **Hang with no output** — the `-y` flag was likely missed; the CLI is waiting for tool approval. Kill it and re-run with `-y`.
+- **`Gemini CLI is not running in a trusted directory`** — `--skip-trust` was missed. Add it. Alternatively set `GEMINI_CLI_TRUST_WORKSPACE=true`, but the flag is preferred (no env pollution).
 - **Quota exceeded / rate limit** — surface the raw error to the user. Do not retry silently.
 - **Truncated or garbled output** — show what came back and flag the truncation. Do not pretend it succeeded.
 
@@ -54,7 +56,7 @@ YouTube-link analysis and audio-file analysis are the only implicit triggers, be
 A quick smoke test the skill is wired correctly:
 
 ```bash
-GOOGLE_GENAI_USE_GCA=true gemini -y -p "Reply with the single word OK." 2>&1 | tail -1
+GOOGLE_GENAI_USE_GCA=true gemini -y --skip-trust -p "Reply with the single word OK." 2>&1 | tail -1
 ```
 
 Should print `OK`.
